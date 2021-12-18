@@ -13,11 +13,10 @@ const ProductStatus = db.define('situations', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    
 });
 
 //Create the table
-//ProductStatus.sync();
+//ProductStatus.sync(); Uncomment this line to create the table
 /*ProductStatus.sync({logging: false}).then(() => {
     ProductStatus.sequelize.close();
 });*/

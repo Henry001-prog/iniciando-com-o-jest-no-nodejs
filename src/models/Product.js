@@ -27,9 +27,7 @@ const Product = db.define('product', {
 Product.belongsTo(Situation, { foreignKey: 'situationId', allowNull: false });
 
 //Create the table
-/*Product.sync({logging: false}).then(() => {
-    Product.sequelize.close();
-});*/
+//Product.sync(); // Uncomment this line to create the table
 //Check if there is any difference in the table and make the change
 //Product.sync({ alter: true });
 
