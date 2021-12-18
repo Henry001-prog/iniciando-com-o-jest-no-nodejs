@@ -55,7 +55,7 @@ describe("CRUD", () => {
             if(result != null) {
                 const response = await result.update(
                     { 
-                        title: 'Samsung Galaxy A60',
+                        title: 'Samsung Galaxy A70',
                         description: '12GB',
                         situationId: 1
                     }, 
@@ -80,7 +80,7 @@ describe("CRUD", () => {
         try {
             const response = await Product.destroy({
                 where: {
-                    id: 18
+                    id: 17
                 }
             });
             if (response !== 0) {
