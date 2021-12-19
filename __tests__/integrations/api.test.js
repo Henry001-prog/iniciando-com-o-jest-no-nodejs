@@ -1,4 +1,3 @@
-const { not } = require('expect');
 const Product = require('../../src/models/Product');
 
 describe("CRUD", () => {
@@ -9,7 +8,7 @@ describe("CRUD", () => {
     it("Deverá criar um produto no banco de dados", async () => {
         
         const response = await Product.create({
-            title: 'Moto G4 Power',
+            title: 'Moto G6 Power',
             description: '64GB',
             situationId: 3
         });
@@ -45,7 +44,7 @@ describe("CRUD", () => {
         if(result != null) {
             const response = await result.update(
                 { 
-                    title: 'Samsung Galaxy A60',
+                    title: 'Samsung Galaxy A70',
                     description: '12GB',
                     situationId: 1
                 }, 
@@ -66,7 +65,7 @@ describe("CRUD", () => {
         
         const response = await Product.destroy({
             where: {
-                id: 32
+                id: 34
             }
         });
         if (response !== 0) {
