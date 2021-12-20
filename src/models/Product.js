@@ -17,17 +17,15 @@ const Product = db.define('product', {
     description: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    situationId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
     }
 });
 
-Product.belongsTo(Situation, { foreignKey: 'situationId', allowNull: false });
+//Product.belongsTo(Situation, { foreignKey: 'situationId', allowNull: false });
 
 //Create the table
-//Product.sync(); // Uncomment this line to create the table
+//Product.sync(); // Uncomment the line before running the yarn run dev command to create the table
+
+
 //Check if there is any difference in the table and make the change
 //Product.sync({ alter: true });
 

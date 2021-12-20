@@ -1,16 +1,15 @@
 const Product = require('../../src/models/Product');
 
 describe("CRUD", () => {
-    beforeAll(async () => {
+    /*beforeAll(async () => {
         Product.sync({logging: false});
-    });
+    });*/ // run this code snippet before running the tests below. then comment it again
 
     it("Deverá criar um produto no banco de dados", async () => {
         
         const response = await Product.create({
             title: 'Moto G6 Power',
-            description: '64GB',
-            situationId: 3
+            description: '64GB'
         });
 
         expect(response.title).not.toBeNull();
@@ -44,9 +43,8 @@ describe("CRUD", () => {
         if(result != null) {
             const response = await result.update(
                 { 
-                    title: 'Samsung Galaxy A70',
-                    description: '12GB',
-                    situationId: 1
+                    title: 'Samsung Galaxy S12',
+                    description: '128GB'
                 }, 
                 {
                 where: {
@@ -65,7 +63,7 @@ describe("CRUD", () => {
         
         const response = await Product.destroy({
             where: {
-                id: 34
+                id: 6
             }
         });
         if (response !== 0) {
@@ -73,9 +71,5 @@ describe("CRUD", () => {
         } else {
             console.log('Não foi possível deletar esse registro solicitado!');
         }
-    });
-
-    afterAll(async () => {
-        Product.sequelize.close();
     });
 });
