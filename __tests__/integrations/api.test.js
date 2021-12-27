@@ -1,5 +1,4 @@
 const Product = require('../../src/models/Product');
-const sequelize = require('../../src/config/dbTest');
 const app = require('../../src/server');
 const request = require('supertest');
 
@@ -10,7 +9,7 @@ describe("CRUD", () => {
 
     it("Deverá criar um produto no banco de dados", async () => {
         const product = {
-            title: 'iPhone 11 Plus',
+            title: 'LG K10',
             description: '64GB'
         };
 
@@ -41,7 +40,7 @@ describe("CRUD", () => {
         const response = await request(app)
                             .put('/api/product/2')
                             .send({ 
-                                    title: 'Samsung Galaxy A80',
+                                    title: 'Samsung Galaxy 10',
                                     description: '128GB'
                                 }, 
                                 {
@@ -55,7 +54,7 @@ describe("CRUD", () => {
     it("Deverá deletar um produto no banco de dados", async () => {
         
         const response = await request(app)
-                               .delete('/api/product/16');
+                               .delete('/api/product/18');
 
         expect(response.status).toBe(200);
     });

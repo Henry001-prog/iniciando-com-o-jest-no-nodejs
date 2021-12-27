@@ -8,6 +8,6 @@ server.use('/api', routes);
 
 const port = 8080;
 
-//server.listen(port);
+server.listen(port);
 
 module.exports = server;
