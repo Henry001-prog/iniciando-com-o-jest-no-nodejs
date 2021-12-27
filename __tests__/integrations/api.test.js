@@ -1,4 +1,7 @@
 const Product = require('../../src/models/Product');
+const sequelize = require('../../src/config/dbTest');
+const app = require('../../src/server');
+const request = require('supertest');
 
 describe("CRUD", () => {
     /*beforeAll(async () => {
@@ -6,70 +9,54 @@ describe("CRUD", () => {
     });*/ // run this code snippet before running the tests below. then comment it again
 
     it("Deverá criar um produto no banco de dados", async () => {
-        
-        const response = await Product.create({
-            title: 'Moto G6 Power',
+        const product = {
+            title: 'iPhone 11 Plus',
             description: '64GB'
-        });
+        };
 
-        expect(response.title).not.toBeNull();
-        expect(response.title).toBeDefined();
+        const response = await request(app)
+                               .post('/api/product')
+                               .send(product);
+
+        expect(response.status).toBe(200);
     });
 
     it("Deverá trazer todos os produto no banco de dados", async () => {
         
-        const response = await Product.findAll();
+        const response = await request(app)
+                               .get('/api/product');
     
-        expect(response.title).not.toBeNull();
-        expect(response).toBeDefined();
+        expect(response.status).toBe(200);
     });
 
     it("Deverá trazer somente um produto do banco de dados", async () => {
         
-        const response = await Product.findByPk(1);
-    
-        //console.log(response);
-        if (response) {
-            expect(response.title).not.toBeNull();
-            expect(response.title).toBeDefined();
-        } else {
-            console.log('Falhou!!!');
-        }
+        const response = await request(app)
+                               .get('/api/product/1');
+        expect(response.status).toBe(200);
     });
 
     it("Deverá atualizar um produto no banco de dados", async () => {
         
-        const result = await Product.findByPk(2);
-        if(result != null) {
-            const response = await result.update(
-                { 
-                    title: 'Samsung Galaxy S12',
-                    description: '128GB'
-                }, 
-                {
-                where: {
-                    id: 2
-                }
-            });
-            expect(response.title).not.toBeNull();
-            expect(response.title).toBeDefined();
-        } else {
-            console.log('Ocorreu um erro ao atualizar o registro.');
-        }
+        const response = await request(app)
+                            .put('/api/product/2')
+                            .send({ 
+                                    title: 'Samsung Galaxy A80',
+                                    description: '128GB'
+                                }, 
+                                {
+                                where: {
+                                    id: 2
+                                }
+                            });
+        expect(response.status).toBe(200);
     });
-
-
+    
     it("Deverá deletar um produto no banco de dados", async () => {
         
-        const response = await Product.destroy({
-            where: {
-                id: 6
-            }
-        });
-        if (response !== 0) {
-            expect(response.title).not.toBeNull();
-        } else {
-            console.log('Não foi possível deletar esse registro solicitado!');
-        }
+        const response = await request(app)
+                               .delete('/api/product/16');
+
+        expect(response.status).toBe(200);
     });
 });

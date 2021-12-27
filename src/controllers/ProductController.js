@@ -7,6 +7,7 @@ module.exports = {
     async createProduct(req, res, next) {
         try {
             const product = await Product.create(req.body);
+            //console.log('Peguei: ', product);
             return res.json(product);
         } catch {
             res.status(500).json({
@@ -19,12 +20,9 @@ module.exports = {
     async showAllProducts(req, res, next) {
         try {
             const product = await Product.findAll({
-                limit: 10, 
-                include: [{
-                    attributes: ['name_status'],
-                    model: ProductStatus
-                }] 
+                limit: 10
             });
+            //console.log('Trouxe tudo: ', product);
             return res.json(product);
         } catch {
             res.status(500).json({
@@ -37,14 +35,9 @@ module.exports = {
     async showProduct(req, res, next) {
         try {
             const product = await Product.findByPk(
-                req.params.id, 
-                {
-                    include: [{
-                        attributes: ['name_status'],
-                        model: ProductStatus
-                    }]
-                }
+                req.params.id
             );
+            //console.log('Um produto: ', product)
             if (product) {
                 return res.json(product);
             } else {
@@ -77,14 +70,9 @@ module.exports = {
                     }
                 });
                 const product = await Product.findByPk(
-                    req.params.id, 
-                    {
-                        include: [{
-                            attributes: ['name_status'],
-                            model: ProductStatus
-                        }]
-                    }
+                    req.params.id
                 );
+                //console.log('Atualizou: ', product);
                 return res.json(product);
             } else {
                 res.status(500).json({
@@ -103,12 +91,13 @@ module.exports = {
 
     async deleteProduct(req, res, next) {
         try {
-            const test = await Product.destroy({
+            const response = await Product.destroy({
                 where: {
                     id: req.params.id
                 }
             });
-            if (test !== 0) {
+            //console.log('Deletado: ', response);
+            if (response !== 0) {
                 return res.json({
                     success: 'Registro deletado com sucesso!'
                 });
@@ -117,7 +106,6 @@ module.exports = {
                     error: 'Não foi possível deletar esse registro solicitado!'
                 });
             }
-            
         } catch {
             res.status(500).json({
                 error: 'Não foi possível deletar o registro solicitado!'
